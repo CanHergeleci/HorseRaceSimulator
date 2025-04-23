@@ -44,5 +44,26 @@ public class HorseTest {
         System.out.println("Expected Horse Fallen after falling: true");
         horse1.fall();
         System.out.println("Actual Horse Fallen after falling: " + horse1.hasFallen());
+
+        // Test setConfidence method
+        System.out.println("Expected Horse Confidence after setting new confidence: 0.5");
+        horse1.setConfidence(0.5);
+        System.out.println("Actual Horse Confidence after setting new confidence: " + horse1.getConfidence());
+
+        // Test setConfidence method with invalid high value
+        try {
+            horse1.setConfidence(1.5); // Invalid value
+            System.out.println("No exception thrown (unexpected)");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exception caught as expected: " + e.getMessage());
+        }
+
+        // Test setConfidence method with invalid low value
+        try {
+            horse1.setConfidence(-1); // Invalid value
+            System.out.println("No exception thrown (unexpected)");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exception caught as expected: " + e.getMessage());
+        }
     }
 }
