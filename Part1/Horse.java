@@ -8,16 +8,21 @@
 public class Horse
 {
     //Fields of class Horse
+    private String name;
+    private char symbol;
+    private int distanceTravelled;
+    private boolean hasFallen;
+    private double confidence;
     
-    
-      
     //Constructor of class Horse
     /**
      * Constructor for objects of class Horse
      */
     public Horse(char horseSymbol, String horseName, double horseConfidence)
     {
-       
+       this.symbol = horseSymbol;
+       this.name = horseName;
+       this.confidence = horseConfidence;
     }
     
     
