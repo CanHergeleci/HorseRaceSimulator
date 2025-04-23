@@ -65,5 +65,21 @@ public class HorseTest {
         } catch (IllegalArgumentException e) {
             System.out.println("Exception caught as expected: " + e.getMessage());
         }
+
+        // Test setConfidence method with edge high value
+        try {
+            horse1.setConfidence(1); // Invalid value
+            System.out.println("No exception thrown (unexpected)");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exception caught as expected: " + e.getMessage());
+        }
+
+        // Test setConfidence method with edge low value
+        try {
+            horse1.setConfidence(0); // Invalid value
+            System.out.println("No exception thrown (unexpected)");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exception caught as expected: " + e.getMessage());
+        }
     }
 }
