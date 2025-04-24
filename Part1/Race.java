@@ -98,6 +98,18 @@ public class Race
                 }
             }
 
+            boolean allFallen = true;
+            for (Horse horse : horses) {
+                if (horse != null && !horse.hasFallen()) {
+                    allFallen = false;
+                    break;
+                }
+            }
+            if (allFallen) {
+                System.out.println("All horses have fallen! No winner.");
+                break;
+            }
+
             if (!winners.isEmpty())
             {
                 finished = true;
