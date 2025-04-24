@@ -46,8 +46,7 @@ public class Race
     {
         if (laneNumber < 1 || laneNumber > numberOfLanes)
         {
-            System.out.println("Cannot add horse to lane " + laneNumber + " because there is no such lane");
-            return;
+            throw new IllegalArgumentException("Cannot add horse to lane " + laneNumber + " because there is no such lane");
         }
 
         while (horses.size() < numberOfLanes)
