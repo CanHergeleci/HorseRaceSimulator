@@ -163,13 +163,13 @@ public class Race
             printLane(horses.get(i));
             System.out.println();
         }
-
-        System.out.println();
         
         for (int i = 0; i < raceLength + 3; i++)
         {
             System.out.print("=");
         }
+        
+        System.out.println();
     }
     
     /**
@@ -180,6 +180,16 @@ public class Race
      */
     private void printLane(Horse theHorse)
     {
+        if (theHorse == null)
+        {
+            System.out.print("|");
+            multiplePrint(' ', raceLength);
+            System.out.print(" |");
+            System.out.print(" (EMPTY LANE)");
+            return;
+        }
+
+
         //calculate how many spaces are needed before
         //and after the horse
         int spacesBefore = theHorse.getDistanceTravelled();
