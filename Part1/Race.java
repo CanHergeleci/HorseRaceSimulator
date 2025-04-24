@@ -151,20 +151,25 @@ public class Race
     {
         System.out.print('\u000C');  //clear the terminal window
         
-        multiplePrint('=',raceLength+3); //top edge of track
+        for (int i = 0; i < raceLength + 3; i++)
+        {
+            System.out.print("=");
+        }
+
         System.out.println();
         
-        printLane(lane1Horse);
+        for (int i = 0; i < numberOfLanes; i++)
+        {
+            printLane(horses.get(i));
+            System.out.println();
+        }
+
         System.out.println();
         
-        printLane(lane2Horse);
-        System.out.println();
-        
-        printLane(lane3Horse);
-        System.out.println();
-        
-        multiplePrint('=',raceLength+3); //bottom edge of track
-        System.out.println();    
+        for (int i = 0; i < raceLength + 3; i++)
+        {
+            System.out.print("=");
+        }
     }
     
     /**
