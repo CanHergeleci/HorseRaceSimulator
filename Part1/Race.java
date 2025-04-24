@@ -67,6 +67,7 @@ public class Race
     public void startRace()
     {
         boolean finished = false;
+        ArrayList<Horse> winners = new ArrayList<>();
         
         for (Horse horse : horses)
         {
@@ -92,10 +93,32 @@ public class Race
             {
                 if (horse != null && raceWonBy(horse))
                 {
-                    finished = true;
-                    System.out.println("And the winner is... " + horse.getName() + "!");
-                    break; // exit loop if horse won, prevents searching through all horses
+                    winners.add(horse);
                 }
+            }
+
+            if (!winners.isEmpty())
+            {
+                finished = true;
+                System.out.println("And the winner");
+                if (winners.size() > 1)
+                {
+                    System.out.print("s are... ");
+                }
+                else
+                {
+                    System.out.print(" is... ");
+                }
+
+                for (int i = 0; i < winners.size(); i++)
+                {
+                    System.out.print(winners.get(i).getName());
+                    if (i < winners.size() - 1)
+                    {
+                        System.out.print(", ");
+                    }
+                }
+                System.out.println("!");
             }
            
             try{ 
