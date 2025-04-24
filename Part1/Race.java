@@ -23,6 +23,14 @@ public class Race
      */
     public Race(int distance, int numberOfLanes)
     {
+        if (distance < 1)
+        {
+            throw new IllegalArgumentException("Distance must be greater than 0");
+        }
+        if (numberOfLanes < 1)
+        {
+            throw new IllegalArgumentException("Number of lanes must be greater than 0");
+        }
         this.raceLength = distance;
         this.numberOfLanes = numberOfLanes;
         this.horses = new ArrayList<>();
@@ -168,7 +176,7 @@ public class Race
         {
             System.out.print("=");
         }
-        
+
         System.out.println();
     }
     
