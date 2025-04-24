@@ -1,5 +1,6 @@
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
+import java.util.ArrayList;
 
 /**
  * A three-horse race, each horse running in its own lane
@@ -11,9 +12,8 @@ import java.lang.Math;
 public class Race
 {
     private int raceLength;
-    private Horse lane1Horse;
-    private Horse lane2Horse;
-    private Horse lane3Horse;
+    private ArrayList<Horse> horses;
+    private int numberOfLanes;
 
     /**
      * Constructor for objects of class Race
@@ -21,13 +21,11 @@ public class Race
      * 
      * @param distance the length of the racetrack (in metres/yards...)
      */
-    public Race(int distance)
+    public Race(int distance, int numberOfLanes)
     {
-        // initialise instance variables
-        raceLength = distance;
-        lane1Horse = null;
-        lane2Horse = null;
-        lane3Horse = null;
+        this.raceLength = distance;
+        this.numberOfLanes = numberOfLanes;
+        this.horses = new ArrayList<>();
     }
     
     /**
@@ -38,22 +36,18 @@ public class Race
      */
     public void addHorse(Horse theHorse, int laneNumber)
     {
-        if (laneNumber == 1)
-        {
-            lane1Horse = theHorse;
-        }
-        else if (laneNumber == 2)
-        {
-            lane2Horse = theHorse;
-        }
-        else if (laneNumber == 3)
-        {
-            lane3Horse = theHorse;
-        }
-        else
+        if (laneNumber < 1 || laneNumber > numberOfLanes)
         {
             System.out.println("Cannot add horse to lane " + laneNumber + " because there is no such lane");
+            return;
         }
+
+        while (horses.size() < numberOfLanes)
+        {
+            horses.add(null);
+        }
+
+        horses.set(laneNumber - 1, theHorse);
     }
     
     /**
@@ -64,39 +58,36 @@ public class Race
      */
     public void startRace()
     {
-        //declare a local variable to tell us when the race is finished
         boolean finished = false;
         
-        //reset all the lanes (all horses not fallen and back to 0). 
-        lane1Horse.goBackToStart();
-        lane2Horse.goBackToStart();
-        lane3Horse.goBackToStart();
+        for (Horse horse : horses)
+        {
+            if (horse != null)
+            {
+                horse.goBackToStart();
+            }
+        }
                       
         while (!finished)
         {
-            //move each horse
-            moveHorse(lane1Horse);
-            moveHorse(lane2Horse);
-            moveHorse(lane3Horse);
-                        
-            //print the race positions
+            for (Horse horse : horses)
+            {
+                if (horse != null)
+                {
+                    moveHorse(horse);
+                }
+            }
+
             printRace();
             
-            //if any of the three horses has won the race is finished
-            if (raceWonBy(lane1Horse))
+            for (Horse horse : horses)
             {
-                finished = true;
-                System.out.println("And the winner is... " + lane1Horse.getName() + "!");
-            }
-            else if (raceWonBy(lane2Horse))
-            {
-                finished = true;
-                System.out.println("And the winner is... " + lane2Horse.getName() + "!");
-            }
-            else if (raceWonBy(lane3Horse))
-            {
-                finished = true;
-                System.out.println("And the winner is... " + lane3Horse.getName() + "!");
+                if (horse != null && raceWonBy(horse))
+                {
+                    finished = true;
+                    System.out.println("And the winner is... " + horse.getName() + "!");
+                    break; // exit loop if horse won, prevents searching through all horses
+                }
             }
            
             //wait for 100 milliseconds
