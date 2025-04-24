@@ -23,11 +23,11 @@ public class Race
      */
     public Race(int distance, int numberOfLanes)
     {
-        if (distance < 1)
+        if (distance < 1 || distance > 50)
         {
             throw new IllegalArgumentException("Distance must be greater than 0");
         }
-        if (numberOfLanes < 1)
+        if (numberOfLanes < 1 || numberOfLanes > 10)
         {
             throw new IllegalArgumentException("Number of lanes must be greater than 0");
         }
