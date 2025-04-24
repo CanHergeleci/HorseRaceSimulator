@@ -213,7 +213,7 @@ public class Race
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            System.out.print('\u2322');
+            System.out.print('❌');
         }
         else
         {
@@ -221,8 +221,15 @@ public class Race
         }
         
         //print the spaces after the horse
-        multiplePrint(' ',spacesAfter);
-        
+        if (theHorse.hasFallen())
+        {
+            multiplePrint(' ',spacesAfter - 1); // Consideration for emoji taking up 2 spaces
+        }
+        else 
+        {
+            multiplePrint(' ',spacesAfter);
+        }
+         
         //print the | for the end of the track
         System.out.print('|');
     }
