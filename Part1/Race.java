@@ -88,6 +88,8 @@ public class Race
             }
 
             printRace();
+
+            winners.clear();
             
             for (Horse horse : horses)
             {
@@ -100,7 +102,7 @@ public class Race
             if (!winners.isEmpty())
             {
                 finished = true;
-                System.out.println("And the winner");
+                System.out.print("And the winner");
                 if (winners.size() > 1)
                 {
                     System.out.print("s are... ");
