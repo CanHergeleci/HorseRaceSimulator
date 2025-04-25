@@ -35,16 +35,26 @@ public class Gui {
         JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
         
         // Top left corner
-        panel.add(createSquare("Lane Count:",new JSlider(1, 10, 5), 1));
+        JSlider LaneCountSlider = new JSlider(2, 10, 5);
+        LaneCountSlider.setPaintLabels(true);
+        LaneCountSlider.setPaintTicks(true);
+        LaneCountSlider.setMajorTickSpacing(1);
+        LaneCountSlider.setSnapToTicks(true);
+        panel.add(createSquare("Lane Count:", LaneCountSlider, 1));
 
         // Top right corner
-        panel.add(createSquare("Track Length:",new JSlider(20, 100, 50), 0));
+        JSlider TrackLengthSlider = new JSlider(20, 100, 50);
+        TrackLengthSlider.setPaintLabels(true);
+        TrackLengthSlider.setPaintTicks(true);
+        TrackLengthSlider.setMajorTickSpacing(10);
+        TrackLengthSlider.setSnapToTicks(true);
+        panel.add(createSquare("Track Length:", TrackLengthSlider, 0));
 
         // Bottom left corner
-        panel.add(createSquare("Track Type:",new JComboBox<>(new String[]{"Straight", "Oval", "Figure 8"}), 0));
+        panel.add(createSquare("Track Type:", new JComboBox<>(new String[]{"Straight", "Oval", "Figure 8"}), 0));
 
         // Bottom right corner
-        panel.add(createSquare("Track Condition:",new JComboBox<>(new String[]{"Dry", "Wet", "Icy"}), 1));
+        panel.add(createSquare("Track Condition:", new JComboBox<>(new String[]{"Dry", "Wet", "Icy"}), 1));
 
         return panel;
     }
