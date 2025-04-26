@@ -41,7 +41,11 @@ public class Gui {
         panel.add(createSquare("Coat Colour:", new JComboBox<>(new String[]{"Brown", "Blonde", "Ginger"}), 0));
 
         // Bottom Left corner
-        panel.add(createSquare("Symbol Representation:", new JTextField(1) , 0));
+        JTextField tf = new JTextField();
+        tf.setPreferredSize(new java.awt.Dimension(25, 15));
+        JPanel textPanel = new JPanel(new GridBagLayout());
+        textPanel.add(tf);
+        panel.add(createSquare("Symbol Representation:", textPanel, 0));
 
         // Bottom Right corner
         JPanel equipment = new JPanel(new GridLayout(6, 1, 0, 5));
