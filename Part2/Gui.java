@@ -30,6 +30,32 @@ public class Gui {
         frame.setVisible(true);
     }
 
+    private static JPanel HorseConfigPanel ()
+    {
+        JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
+
+        // Top left corner
+        panel.add(createSquare("Horse Breed:", new JComboBox<>(new String[]{"Thoroughbred", "Arabian", "Quarter Horse"}), 1));
+
+        // Top right corner
+        panel.add(createSquare("Coat Colour:", new JComboBox<>(new String[]{"Brown", "Blonde", "Ginger"}), 0));
+
+        // Bottom Left corner
+        panel.add(createSquare("Symbol Representation:", new JTextField(1) , 0));
+
+        // Bottom Right corner
+        JPanel equipment = new JPanel(new GridLayout(6, 1, 0, 5));
+        equipment.add(new JLabel("Saddle"));
+        equipment.add(new JComboBox<>(new String[]{"Red", "Blue", "Yellow"}));
+        equipment.add(new JLabel("Horseshoes"));
+        equipment.add(new JComboBox<>(new String[]{"Leightweight", "Regular", "Heavy"}));
+        equipment.add(new JLabel("Blankets"));
+        equipment.add(new JComboBox<>(new String[]{"Red", "Blue", "Yellow"}));
+        panel.add(createSquare("Equipment:", equipment, 1));
+
+        return panel;
+    }
+
     private static JPanel RaceConfigPanel ()
     {
         JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
