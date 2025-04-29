@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 
 public class Gui {
@@ -28,6 +30,23 @@ public class Gui {
 
         frame.add(tabbedPane);
         frame.setVisible(true);
+    }
+
+    private static JPanel StatisticsPanel ()
+    {
+        JPanel panel = new JPanel();
+
+        // Table at the top
+        String[] columnNames = {"Horse Name", "Average Speed", "Finishing Time", "Win Ratio", "Confidence Change (%)"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 1);
+        JTable table = new JTable(model);
+        table.setLocation(15, 015);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new java.awt.Dimension(650, 100));
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        return panel;
     }
 
     private static JPanel HorseConfigPanel ()
