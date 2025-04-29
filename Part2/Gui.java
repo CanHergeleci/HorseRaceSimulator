@@ -19,17 +19,21 @@ public class Gui {
         // Horse config tab
         tabbedPane.addTab("Horse Configuration", HorseConfigPanel());
 
-        // Race tab
-        tabbedPane.addTab("Ongoing Race", RacePanel());
-
         // Statistics & Analytics tab
         tabbedPane.addTab("Statistics", StatisticsPanel());
 
-        // Betting tab
-        tabbedPane.addTab("Betting", BettingPanel());
+        // Race tab
+        tabbedPane.addTab("Ongoing Race", RacePanel());
 
         frame.add(tabbedPane);
         frame.setVisible(true);
+    }
+
+    private static JPanel RacePanel()
+    {
+        JPanel panel = new JPanel();
+
+        return panel;
     }
 
     private static JPanel StatisticsPanel ()
