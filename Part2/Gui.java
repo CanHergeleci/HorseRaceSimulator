@@ -9,7 +9,7 @@ public class Gui {
         // Create a JFrame
         JFrame frame = new JFrame("Horse Race Track");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 600);
+        frame.setSize(750, 750);
         
         JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -45,6 +45,11 @@ public class Gui {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new java.awt.Dimension(650, 100));
         panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Centre
+        JLabel label = new JLabel("18.2 Seconds");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(createSquare("Best Time For Current Track", label, 0));
 
         return panel;
     }
