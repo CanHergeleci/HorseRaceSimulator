@@ -64,6 +64,7 @@ public class Gui {
         tf.setPreferredSize(new java.awt.Dimension(25, 15));
         JPanel textPanel = new JPanel(new GridBagLayout());
         textPanel.add(tf);
+        textPanel.setBackground(Color.LIGHT_GRAY);
         panel.add(createSquare("Symbol Representation:", textPanel, 0));
 
         // Bottom Right corner
@@ -74,6 +75,7 @@ public class Gui {
         equipment.add(new JComboBox<>(new String[]{"Leightweight", "Regular", "Heavy"}));
         equipment.add(new JLabel("Blankets"));
         equipment.add(new JComboBox<>(new String[]{"Red", "Blue", "Yellow"}));
+        equipment.setBackground(Color.GRAY);
         panel.add(createSquare("Equipment:", equipment, 1));
 
         return panel;
