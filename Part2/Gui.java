@@ -102,7 +102,8 @@ public class Gui {
         panel.add(createSquare("Horse Name:", namePanel, 0));
 
         // Bottom Right corner
-        panel.add(createSquare("Create Horse", new JButton("Create Horse"), 1));
+        JButton createHorse = new JButton("Create Horse");
+        panel.add(createSquare("Create Horse", createHorse, 1));
 
         return panel;
     }
