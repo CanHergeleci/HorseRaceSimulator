@@ -13,6 +13,11 @@ public class Gui {
     private static DefaultTableModel raceTableModel;
     public static void main (String[] args)
     {
+        startRaceGUI();
+    }
+
+    public static void startRaceGUI ()
+    {
         // Create a JFrame
         JFrame frame = new JFrame("Horse Race Track");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
