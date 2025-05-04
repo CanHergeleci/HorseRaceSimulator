@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Gui {
 
     private static ArrayList<Horse> horses = new ArrayList<>();
+    private static JButton start;
     public static void main (String[] args)
     {
         // Create a JFrame
@@ -15,6 +16,9 @@ public class Gui {
         
         JTabbedPane tabbedPane = new JTabbedPane();
 
+        // Race tab
+        tabbedPane.addTab("Ongoing Race", RacePanel());
+
         // Race config tab
         tabbedPane.addTab("Race Configuration", RaceConfigPanel());
 
@@ -23,9 +27,6 @@ public class Gui {
 
         // Statistics & Analytics tab
         tabbedPane.addTab("Statistics", StatisticsPanel());
-
-        // Race tab
-        tabbedPane.addTab("Ongoing Race", RacePanel());
 
         frame.add(tabbedPane);
         frame.setVisible(true);
@@ -37,7 +38,7 @@ public class Gui {
         JTextArea raceDisplay = new JTextArea();
         raceDisplay.setEditable(false);
 
-        JButton start = new JButton("Start Race");
+        start = new JButton("Start Race");
         panel.add(start, BorderLayout.NORTH);
         panel.add(raceDisplay, BorderLayout.CENTER);
 
@@ -217,26 +218,40 @@ public class Gui {
         JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
         
         // Top left corner
-        JSlider LaneCountSlider = new JSlider(2, 10, 5);
-        LaneCountSlider.setPaintLabels(true);
-        LaneCountSlider.setPaintTicks(true);
-        LaneCountSlider.setMajorTickSpacing(1);
-        LaneCountSlider.setSnapToTicks(true);
-        panel.add(createSquare("Lane Count:", LaneCountSlider, 1));
+        JSlider laneCountSlider = new JSlider(2, 10, 5);
+        laneCountSlider.setPaintLabels(true);
+        laneCountSlider.setPaintTicks(true);
+        laneCountSlider.setMajorTickSpacing(1);
+        laneCountSlider.setSnapToTicks(true);
+        panel.add(createSquare("Lane Count:", laneCountSlider, 1));
 
         // Top right corner
-        JSlider TrackLengthSlider = new JSlider(20, 100, 50);
-        TrackLengthSlider.setPaintLabels(true);
-        TrackLengthSlider.setPaintTicks(true);
-        TrackLengthSlider.setMajorTickSpacing(10);
-        TrackLengthSlider.setSnapToTicks(true);
-        panel.add(createSquare("Track Length:", TrackLengthSlider, 0));
+        JSlider trackLengthSlider = new JSlider(20, 100, 50);
+        trackLengthSlider.setPaintLabels(true);
+        trackLengthSlider.setPaintTicks(true);
+        trackLengthSlider.setMajorTickSpacing(10);
+        trackLengthSlider.setSnapToTicks(true);
+        panel.add(createSquare("Track Length:", trackLengthSlider, 0));
 
         // Bottom left corner
-        panel.add(createSquare("Track Type:", new JComboBox<>(new String[]{"Straight", "Oval", "Figure 8"}), 0));
+        JComboBox<String> raceTrack = new JComboBox<>(new String[]{"Straight", "Oval", "Figure 8"});
+        panel.add(createSquare("Track Type:", raceTrack, 0));
 
         // Bottom right corner
-        panel.add(createSquare("Track Condition:", new JComboBox<>(new String[]{"Dry", "Wet", "Icy"}), 1));
+        JComboBox<String> weather = new JComboBox<>(new String[]{"Dry", "Wet", "Icy"});
+        panel.add(createSquare("Track Condition:", weather, 1));
+
+        start.addActionListener(e -> {
+
+            Race race = new Race(trackLengthSlider.getValue(), laneCountSlider.getValue());
+            for (Horse horse : horses)
+            {
+                race.addHorse(horse, laneCountSlider.getValue());
+            }
+
+            race.startRace();
+        });
+
 
         return panel;
     }
