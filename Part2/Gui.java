@@ -9,7 +9,7 @@ public class Gui {
         // Create a JFrame
         JFrame frame = new JFrame("Horse Race Track");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(750, 750);
+        frame.setSize(900, 750);
         
         JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -69,20 +69,20 @@ public class Gui {
         JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
 
         // Top left corner
-        panel.add(createSquare("Horse Breed:", new JComboBox<>(new String[]{"Thoroughbred", "Arabian", "Quarter Horse"}), 1));
+        panel.add(createSquare("Horse Breed:", new JComboBox<>(new String[]{"Thoroughbred", "Arabian", "Quarter Horse"}), 0));
+
+        // Top middle
+        panel.add(createSquare("Coat Colour:", new JComboBox<>(new String[]{"Brown", "Blonde", "Ginger"}), 1));
 
         // Top right corner
-        panel.add(createSquare("Coat Colour:", new JComboBox<>(new String[]{"Brown", "Blonde", "Ginger"}), 0));
-
-        // Bottom Left corner
         JTextField tf = new JTextField();
-        tf.setPreferredSize(new java.awt.Dimension(25, 15));
+        tf.setPreferredSize(new java.awt.Dimension(30, 20));
         JPanel textPanel = new JPanel(new GridBagLayout());
         textPanel.add(tf);
         textPanel.setBackground(Color.LIGHT_GRAY);
         panel.add(createSquare("Symbol Representation:", textPanel, 0));
 
-        // Bottom Right corner
+        // Bottom left corner
         JPanel equipment = new JPanel(new GridLayout(6, 1, 0, 5));
         equipment.add(new JLabel("Saddle"));
         equipment.add(new JComboBox<>(new String[]{"Red", "Blue", "Yellow"}));
@@ -92,6 +92,17 @@ public class Gui {
         equipment.add(new JComboBox<>(new String[]{"Red", "Blue", "Yellow"}));
         equipment.setBackground(Color.GRAY);
         panel.add(createSquare("Equipment:", equipment, 1));
+
+        // Bottom middle
+        JTextField name = new JTextField();
+        name.setPreferredSize(new java.awt.Dimension(150, 20));
+        JPanel namePanel = new JPanel(new GridBagLayout());
+        namePanel.add(name);
+        namePanel.setBackground(Color.LIGHT_GRAY);
+        panel.add(createSquare("Horse Name:", namePanel, 0));
+
+        // Bottom Right corner
+        panel.add(createSquare("Create Horse", new JButton("Create Horse"), 1));
 
         return panel;
     }
