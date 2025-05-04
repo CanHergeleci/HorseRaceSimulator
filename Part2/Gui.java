@@ -31,7 +31,13 @@ public class Gui {
 
     private static JPanel RacePanel()
     {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new BorderLayout());
+        JTextArea raceDisplay = new JTextArea();
+        raceDisplay.setEditable(false);
+
+        JButton start = new JButton("Start Race");
+        panel.add(start, BorderLayout.NORTH);
+        panel.add(raceDisplay, BorderLayout.CENTER);
 
         return panel;
     }
