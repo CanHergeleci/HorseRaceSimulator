@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.random.*;
 
 import java.awt.*;
 
@@ -69,10 +70,12 @@ public class Gui {
         JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
 
         // Top left corner
-        panel.add(createSquare("Horse Breed:", new JComboBox<>(new String[]{"Thoroughbred", "Arabian", "Quarter Horse"}), 0));
+        JComboBox<String> breed = new JComboBox<>(new String[]{"Thoroughbred", "Arabian", "Quarter Horse"});
+        panel.add(createSquare("Horse Breed:", breed, 0));
 
         // Top middle
-        panel.add(createSquare("Coat Colour:", new JComboBox<>(new String[]{"Brown", "Blonde", "Ginger"}), 1));
+        JComboBox<String> colour = new JComboBox<>(new String[]{"Brown", "Blonde", "Ginger"});
+        panel.add(createSquare("Coat Colour:", colour, 1));
 
         // Top right corner
         JTextField tf = new JTextField();
@@ -85,11 +88,14 @@ public class Gui {
         // Bottom left corner
         JPanel equipment = new JPanel(new GridLayout(6, 1, 0, 5));
         equipment.add(new JLabel("Saddle"));
-        equipment.add(new JComboBox<>(new String[]{"Red", "Blue", "Yellow"}));
+        JComboBox<String> saddle = new JComboBox<>(new String[]{"Red", "Blue", "Yellow"});
+        equipment.add(saddle);
         equipment.add(new JLabel("Horseshoes"));
-        equipment.add(new JComboBox<>(new String[]{"Leightweight", "Regular", "Heavy"}));
+        JComboBox<String> shoe = new JComboBox<>(new String[]{"Lightweight", "Regular", "Heavy"});
+        equipment.add(shoe);
         equipment.add(new JLabel("Blankets"));
-        equipment.add(new JComboBox<>(new String[]{"Red", "Blue", "Yellow"}));
+        JComboBox<String> blanket = new JComboBox<>(new String[]{"Red", "Blue", "Yellow"});
+        equipment.add(blanket);
         equipment.setBackground(Color.GRAY);
         panel.add(createSquare("Equipment:", equipment, 1));
 
@@ -104,6 +110,95 @@ public class Gui {
         // Bottom Right corner
         JButton createHorse = new JButton("Create Horse");
         panel.add(createSquare("Create Horse", createHorse, 1));
+
+        // Create Horse object
+        createHorse.addActionListener(e -> {
+            
+            // Convert string into char
+            String text = tf.getText();
+            int codePoint = text.codePointCount(0, text.length()) > 0 ? text.codePointAt(0) : ' ';
+            char symbol = (char) codePoint;
+
+            Horse horse = new Horse(symbol, name.getText(), Math.random());
+
+            // Get horse configuration and apply changes to confidence
+            String selectedBreed = (String) breed.getSelectedItem();
+            String selectedColour = (String) colour.getSelectedItem();
+            String selectedBlanket = (String) blanket.getSelectedItem();
+            String selectedSaddle = (String) saddle.getSelectedItem();
+            String selectedShoe = (String) shoe.getSelectedItem();
+
+            // Adjust confidence which impacts 'speed' and 'fall rate'
+            if (selectedBreed.equals("Thoroughbred"))
+            {
+                horse.setConfidence(horse.getConfidence() * 1.2); //Increases confidence which increases the chance of moving forward aka speed but also increases change of falling
+            }
+            else if (selectedBreed.equals("Arabian"))
+            {
+                horse.setConfidence(horse.getConfidence() * 1.05);
+            }
+            else if (selectedBreed.equals("Quarter Horse"))
+            {
+                horse.setConfidence(horse.getConfidence() * 0.8);
+            }
+
+            // Smaller impact on confidence compared to breed
+            if (selectedColour.equals("Brown"))
+            {
+                horse.setConfidence(horse.getConfidence() * 1.1); 
+            }
+            else if (selectedColour.equals("Ginger"))
+            {
+                horse.setConfidence(horse.getConfidence() * 1.05);
+            }
+            else if (selectedColour.equals("Blonde"))
+            {
+                horse.setConfidence(horse.getConfidence() * 0.9);
+            }
+
+            // Smaller impact on confidence comapred to colour
+            if (selectedBlanket.equals("Red"))
+            {
+                horse.setConfidence(horse.getConfidence() * 1.05); 
+            }
+            else if (selectedBlanket.equals("Blue"))
+            {
+                // No change in confidence
+            }
+            else if (selectedBlanket.equals("Yellow"))
+            {
+                horse.setConfidence(horse.getConfidence() * 0.95);
+            }
+
+            // Same impact on confidence comapred to blanket
+            if (selectedSaddle.equals("Red"))
+            {
+                horse.setConfidence(horse.getConfidence() * 1.05); 
+            }
+            else if (selectedSaddle.equals("Blue"))
+            {
+                // No change in confidence
+            }
+            else if (selectedSaddle.equals("Yellow"))
+            {
+                horse.setConfidence(horse.getConfidence() * 0.95);
+            }
+
+            // Slightly more impact on confidence compared to blanket and saddle
+            if (selectedShoe.equals("Lightweight"))
+            {
+                horse.setConfidence(horse.getConfidence() * 1.075); 
+            }
+            else if (selectedShoe.equals("Regular"))
+            {
+                // No change in confidence
+            }
+            else if (selectedShoe.equals("Heavy"))
+            {
+                horse.setConfidence(horse.getConfidence() * 0.925);
+            }
+        
+        });
 
         return panel;
     }
