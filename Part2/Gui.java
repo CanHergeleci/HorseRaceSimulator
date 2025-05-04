@@ -1,12 +1,16 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Gui {
 
     private static ArrayList<Horse> horses = new ArrayList<>();
     private static JButton start;
+    private static JTable raceTable;
+    private static DefaultTableModel raceTableModel;
     public static void main (String[] args)
     {
         // Create a JFrame
@@ -35,12 +39,19 @@ public class Gui {
     private static JPanel RacePanel()
     {
         JPanel panel = new JPanel(new BorderLayout());
-        JTextArea raceDisplay = new JTextArea();
-        raceDisplay.setEditable(false);
+
+        String[] columnNames = {""};
+        raceTableModel = new DefaultTableModel(columnNames, 0);
+        raceTable = new JTable(raceTableModel);
+        raceTable.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        raceTable.setRowHeight(22);
+        raceTable.setShowGrid(false);
+        raceTable.setTableHeader(null);
+        JScrollPane scrollPane = new JScrollPane(raceTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         start = new JButton("Start Race");
         panel.add(start, BorderLayout.NORTH);
-        panel.add(raceDisplay, BorderLayout.CENTER);
+        panel.add(scrollPane, BorderLayout.CENTER);
 
         return panel;
     }
@@ -278,9 +289,31 @@ public class Gui {
                 JOptionPane.showMessageDialog(panel, "You have not added any horses, please go to Horse Configuration Panel and add a Horse.");
                 return;
             }
-            race.startRace();
-        });
 
+            JOptionPane.showMessageDialog(panel, "Race is being generated. Please wait for results to be displyed.");
+
+            // Redirect text from terminal to gui this allows part 1 to work independently to part 2
+            try {
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                PrintStream originalOut = System.out;
+                System.setOut(new PrintStream(output));
+
+            race.startRace();
+
+            System.setOut(originalOut);
+
+            String raceOutput = output.toString();
+            String[] lines = raceOutput.split("\n");
+            raceTableModel.setRowCount(0); 
+            
+            for (String line : lines) {
+                raceTableModel.addRow(new Object[]{line});
+            }
+            } 
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, "Error displaying race: " + ex.getMessage());
+        }
+    });
 
         return panel;
     }
