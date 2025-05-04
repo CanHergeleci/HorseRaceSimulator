@@ -1,10 +1,11 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.util.random.*;
-
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Gui {
+
+    private static ArrayList<Horse> horses = new ArrayList<>();
     public static void main (String[] args)
     {
         // Create a JFrame
@@ -114,12 +115,20 @@ public class Gui {
         // Create Horse object
         createHorse.addActionListener(e -> {
             
+            // Limit number of horses to 10
+            if (horses.size() >= 10)
+            {
+                JOptionPane.showMessageDialog(panel, "Maximum of 10 horses reached.");
+                return;
+            }
+
             // Convert string into char
             String text = tf.getText();
             int codePoint = text.codePointCount(0, text.length()) > 0 ? text.codePointAt(0) : ' ';
             char symbol = (char) codePoint;
 
             Horse horse = new Horse(symbol, name.getText(), Math.random());
+            horses.add(horse);
 
             // Get horse configuration and apply changes to confidence
             String selectedBreed = (String) breed.getSelectedItem();
