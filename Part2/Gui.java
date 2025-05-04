@@ -125,11 +125,21 @@ public class Gui {
 
             // Convert string into char
             String text = tf.getText();
-            int codePoint = text.codePointCount(0, text.length()) > 0 ? text.codePointAt(0) : ' ';
-            char symbol = (char) codePoint;
+            if (text.length() != 1 || text.codePointCount(0, text.length()) != 1) {
+                JOptionPane.showMessageDialog(panel, "Please enter a single character symbol (most emojis are not supported).");
+                return;
+            }
+            char symbol = text.charAt(0);
+
+            if (symbol == ' ' || name.getText().equals(""))
+            {
+                JOptionPane.showMessageDialog(panel, "Please ensure all fields are filled before clicking create.");
+                return;
+            }
 
             Horse horse = new Horse(symbol, name.getText(), Math.random());
             horses.add(horse);
+            JOptionPane.showMessageDialog(panel, "Horse added.");
 
             // Get horse configuration and apply changes to confidence
             String selectedBreed = (String) breed.getSelectedItem();
@@ -249,6 +259,11 @@ public class Gui {
                 race.addHorse(horse, laneCountSlider.getValue());
             }
 
+            if (horses.isEmpty())
+            {
+                JOptionPane.showMessageDialog(panel, "You have not added any horses, please go to Horse Configuration Panel and add a Horse.");
+                return;
+            }
             race.startRace();
         });
 
