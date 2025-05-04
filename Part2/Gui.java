@@ -267,9 +267,11 @@ public class Gui {
             String weatherSelected = (String) weather.getSelectedItem();
 
             Race race = new Race(trackLengthSlider.getValue(), laneCountSlider.getValue());
+
+            int i = 1;
             for (Horse horse : horses)
             {
-                race.addHorse(horse, laneCountSlider.getValue());
+                race.addHorse(horse, i);
                 if (weatherSelected.equals("Wet"))
                 {
                     horse.setConfidence(horse.getConfidence() * 1.05);
@@ -282,6 +284,7 @@ public class Gui {
                 {
                     horse.setConfidence(horse.getConfidence() * 0.95);
                 }
+                i++;
             }
 
             if (horses.isEmpty())
