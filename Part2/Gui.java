@@ -77,7 +77,7 @@ public class Gui {
         panel.add(scrollPane, BorderLayout.CENTER);
 
         // Centre
-        JLabel label = new JLabel("18.2 Seconds");
+        JLabel label = new JLabel("Feature Coming SOON");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(createSquare("Best Time For Current Track", label, 0));
 
