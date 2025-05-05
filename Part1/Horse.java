@@ -1,9 +1,11 @@
 
 /**
- * Write a description of class Horse here.
+ * This Horse class represents a horse in the race simulator.
+ * It contains fields for the horse's name, symbol, distance travelled etc.
+ * It also contains methods to manipulate and retrieve the horse's state.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Can Hergeleci 
+ * @version 05.05.2025
  */
 public class Horse
 {

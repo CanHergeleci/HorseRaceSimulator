@@ -5,6 +5,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+/**
+ * The GUI class provides the graphical user interface for the Horse Race Simulator.
+ * It manages the main application window, user interactions, and displays race configuration.
+ * It uses JSwing components to output ongoing race progress, statistics, and horse configurations.
+ * 
+ * @author Can Hergeleci
+ * @version 05.05.2025
+ */
 public class Gui {
 
     private static ArrayList<Horse> horses = new ArrayList<>();

@@ -3,11 +3,12 @@ import java.lang.Math;
 import java.util.ArrayList;
 
 /**
- * A three-horse race, each horse running in its own lane
- * for a given distance
+ * A horse race simulator, each horse running in its own lane for a given distance.
+ * It managed the race setup, adds horses to lanes, and controls the race logic.
+ * It also handles the horse's movement, falling, and winning conditions.
  * 
- * @author McRaceface
- * @version 1.0
+ * @author Can Hergeleci
+ * @version 05.05.2025
  */
 public class Race
 {
