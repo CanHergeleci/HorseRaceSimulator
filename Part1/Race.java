@@ -105,7 +105,18 @@ public class Race
                     break;
                 }
             }
-            if (allFallen) {
+
+            // Reduce confidence if horse falls in last race
+            for (Horse horse : horses)
+            {
+                if (horse != null && horse.hasFallen())
+                {
+                    horse.setConfidence(horse.getConfidence() * 0.95);
+                }
+            }
+
+            if (allFallen) 
+            {
                 System.out.println("All horses have fallen! No winner.");
                 break;
             }
@@ -132,6 +143,12 @@ public class Race
                     }
                 }
                 System.out.println("!");
+
+                // increase confidence if horse has won the race
+                for (Horse horse : winners)
+                {
+                    horse.setConfidence(horse.getConfidence() * 1.05);
+                }
             }
            
             try{ 
