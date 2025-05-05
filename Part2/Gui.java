@@ -11,6 +11,7 @@ public class Gui {
     private static JButton start;
     private static JTable raceTable;
     private static DefaultTableModel raceTableModel;
+    private static DefaultTableModel statisticsTableModel;
     public static void main (String[] args)
     {
         startRaceGUI();
@@ -66,9 +67,9 @@ public class Gui {
         JPanel panel = new JPanel();
 
         // Table at the top
-        String[] columnNames = {"Horse Name", "Average Speed", "Finishing Time", "Win Ratio", "Confidence Change (%)"};
-        DefaultTableModel model = new DefaultTableModel(columnNames, 1);
-        JTable table = new JTable(model);
+        String[] columnNames = {"Horse Name", "Average Speed", "Finishing Time", "Confidence Change (%)"};
+        statisticsTableModel = new DefaultTableModel(columnNames, 0);
+        JTable table = new JTable(statisticsTableModel);
         table.setLocation(15, 015);
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -306,22 +307,54 @@ public class Gui {
                 PrintStream originalOut = System.out;
                 System.setOut(new PrintStream(output));
 
-            race.startRace();
-
-            System.setOut(originalOut);
-
-            String raceOutput = output.toString();
-            String[] lines = raceOutput.split("\n");
-            raceTableModel.setRowCount(0); 
+                int startTime = (int) System.currentTimeMillis();
             
-            for (String line : lines) {
-                raceTableModel.addRow(new Object[]{line});
-            }
+                race.startRace();
+
+                int endTime = (int) System.currentTimeMillis();
+                int difference = endTime - startTime;
+                double seconds = difference / 1000.0;
+                seconds = ((int)(seconds * 100) / 100.0);
+
+                System.setOut(originalOut);
+
+                String raceOutput = output.toString();
+                String[] lines = raceOutput.split("\n");
+                raceTableModel.setRowCount(0); 
+            
+                for (String line : lines) {
+                   raceTableModel.addRow(new Object[]{line});
+                }
+
+                for (Horse horse : horses)
+                {
+                    if (horse != null)
+                    {
+                        String avgSpeed = Double.toString(((int)(horse.getDistanceTravelled() / seconds) * 100) / 100.0);
+                        String name = horse.getName();
+                        String finishingTime = Double.toString(seconds);
+                        String confidenceChange = "N/A";
+                        if (horse.hasFallen() == true)
+                        {
+                            confidenceChange = "5% decrease";
+                        }
+                        else
+                        {
+                            confidenceChange = "5% increase";
+                        }
+                        statisticsTableModel.addRow(new Object[]{
+                            name,
+                            avgSpeed,
+                            finishingTime,
+                            confidenceChange
+                        });
+                    }
+                }
             } 
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(panel, "Error displaying race: " + ex.getMessage());
-        }
-    });
+            }
+        });
 
         return panel;
     }
