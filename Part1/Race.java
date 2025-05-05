@@ -16,6 +16,46 @@ public class Race
     private ArrayList<Horse> horses;
     private int numberOfLanes;
 
+    public static void main(String[] args)
+    {
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+
+        System.out.print("Enter the distance of the race: ");
+        int distance = Integer.parseInt(scanner.nextLine());
+    
+        System.out.print("Enter the number of lanes: ");
+        int lanes = Integer.parseInt(scanner.nextLine());
+    
+        Race race = new Race(distance, lanes);
+    
+        int horseCount = 0;
+        while (horseCount < 10) {
+            System.out.print("Enter horse name: ");
+            String name = scanner.nextLine();
+    
+            System.out.print("Enter horse symbol (single character): ");
+            char symbol = scanner.nextLine().charAt(0);
+    
+            double confidence = Math.random();
+            race.addHorse(new Horse(symbol, name, confidence), horseCount + 1);
+            horseCount++;
+    
+            if (horseCount == 10) {
+                System.out.println("Maximum number of horses reached.");
+                break;
+            }
+    
+            System.out.print("Add another horse? (Y/N): ");
+            String response = scanner.nextLine().trim();
+            if (response.equalsIgnoreCase("N")) {
+                break;
+            }
+        }
+    
+        race.startRace();
+        scanner.close();
+    }
+
     /**
      * Constructor for objects of class Race
      * Initially there are no horses in the lanes

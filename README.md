@@ -40,7 +40,10 @@
     <p>Once you are in the correct directory, use the command "javac *.java" to compile all files.</p>
   </li>
   <li>
-    <p>Once the program is compiled, use the command "java Gui" to run the program.</p>
+    <p>Once the program is compiled, use the command "java Gui" to run part 2 of the program. For convinience the startRaceGUI method has been placed in the main method. The second part includes a graphical user interface.</p>
+  </li>
+  <li>
+  <p>Note if you want to run part 1 of the program which runs directly in the terminal, use "java Race". This will then ask you to enter the details of the race and begin.</p>
   </li>
 </ol>
 
