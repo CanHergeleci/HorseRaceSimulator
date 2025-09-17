@@ -34,7 +34,7 @@
     <p>Launch your machines terminal</p>
   </li>
   <li>
-    <p>Navigate to the directory where you downloaded the files. To do this use cd and ls to change directories and list all current files.</p>
+    <p>Navigate to the directory where you downloaded the files.  Use cd to change directories. You can run ls (Mac/Linux) or dir (Windows) to list files and confirm you’re in the right place.</p>
   </li>
   <li>
     <p>Once you are in the correct directory, use the command "javac *.java" to compile all files.</p>
